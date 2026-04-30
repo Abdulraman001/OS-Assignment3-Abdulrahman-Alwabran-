@@ -6,6 +6,10 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.Random;
 
+
+
+
+
 // ANSI Color Codes for enhanced terminal output
 class Colors {
     public static final String RESET = "\u001B[0m";
@@ -228,7 +232,7 @@ public class SchedulerSimulationSync {
     public static void main(String[] args) {
         // ⚠️ IMPORTANT: Put your student ID here
         int studentID = 445050098;  // ← CHANGE THIS TO YOUR ACTUAL STUDENT ID
-        
+         
         Random random = new Random(studentID);
         
         int timeQuantum = 2000 + random.nextInt(4) * 1000;
