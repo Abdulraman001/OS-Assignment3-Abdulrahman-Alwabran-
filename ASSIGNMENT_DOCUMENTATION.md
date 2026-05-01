@@ -32,41 +32,41 @@
 Document your development process with **minimum 3 entries** showing progression:
 
 ### Entry 1 - [Date, Time]
-**What I implemented**: 
+**What I implemented**: Basic Round Robin scheduling and Process class structure. 
 
-**Challenges encountered**: 
+**Challenges encountered**: Processes were finishing instantly or out of order.
 
-**How I solved it**: 
+**How I solved it**:Implemented Thread.sleep() to simulate real execution time. 
 
-**Testing approach**: 
+**Testing approach**:Printing process IDs to the console to verify order. 
 
-**Time spent**: 
+**Time spent**: Time spent: 3 Hours
 
 ---
 
 ### Entry 2 - [Date, Time]
-**What I implemented**: 
+**What I implemented**: Student ID seed logic for random data generation.
 
-**Challenges encountered**: 
+**Challenges encountered**: Random values changed every run, making testing impossible.
 
-**How I solved it**: 
+**How I solved it**:  Used Random(seed) to ensure identical results for the same ID.
 
-**Testing approach**: 
+**Testing approach**: Running the code 3 times with the same ID to check consistency. 
 
-**Time spent**: 
+**Time spent**:1 Hour 
 
 ---
 
 ### Entry 3 - [Date, Time]
-**What I implemented**: 
+**What I implemented**: Semaphores for CPU mutual exclusion.
 
-**Challenges encountered**: 
+**Challenges encountered**:  Multiple threads were "executing" on the CPU simultaneously.
 
-**How I solved it**: 
+**How I solved it**: Wrapped the execution block with semaphore.acquire() and release().
 
-**Testing approach**: 
+**Testing approach**: Monitoring console logs to ensure only one "Start" appears before an "End".
 
-**Time spent**: 
+**Time spent**: 2.5 Hours 
 
 ---
 
@@ -290,7 +290,7 @@ try {
 
 ### What I learned about synchronization:
 
-[6-8 sentences about key concepts, challenges, insights]
+Synchronization is vital to prevent Race Conditions and data corruption. I learned that Semaphores control CPU access, while Locks protect shared variables like logs. It ensures that multi-threaded tasks remain Atomic and consistent. Without it, concurrent updates would fail, leading to inaccurate system statistics.
 
 ---
 
@@ -298,15 +298,15 @@ try {
 
 Give TWO examples where synchronization is critical:
 
-**Example 1**: 
+**Example 1**: Banking. Prevents simultaneous withdrawals from exceeding the balance.
 
-**Example 2**: 
+**Example 2**: Flight Booking. Prevents booking the same seat for two different people.
 
 ---
 
 ### How I would explain synchronization to others:
 
-[Explain to someone who just finished Assignment 1 - use simple terms and analogies]
+It’s like a talking stick in a circle; only the person holding it can speak. This prevents everyone from talking at once, ensuring the conversation stays clear and organized.
 
 ---
 
@@ -314,28 +314,28 @@ Give TWO examples where synchronization is critical:
 
 **Repository URL**: https://github.com/Abdulraman001/OS-Assignment3-Abdulrahman-Alwabran-/edit/main/ASSIGNMENT_DOCUMENTATION.md
 
-**Number of commits**: 
+**Number of commits**: 18
 
 **Commit messages**: 
-1. 
-2. 
-3. 
-4. 
+1. Setup Round Robin logic.
+2. Added Semaphores/Locks.
+3. Added ID Seed logic.
+4. Final UI and Stats.
 
 ---
 
 ## Summary
 
-**Total time spent on assignment**: 
+**Total time spent on assignment**:  7 hours
 
 **Key takeaways**: 
-1. 
-2. 
-3. 
+1 Synchronization is essential to prevent data corruption in multi-threading.
+2. Semaphores effectively manage shared hardware resources like the CPU.
+3. Seed logic ensures that random simulations are consistent and testable.
 
-**Most challenging aspect**: 
+**Most challenging aspect**: Implementing Fine-grained locking to protect shared counters without causing performance bottlenecks or deadlocks.
 
-**What I'm most proud of**: 
+**What I'm most proud of**: Successfully creating a stable, thread-safe simulation that produces 100% accurate statistics every time.
 
 ---
 
