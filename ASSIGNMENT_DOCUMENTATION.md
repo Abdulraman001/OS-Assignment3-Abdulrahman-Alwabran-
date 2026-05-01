@@ -14,7 +14,7 @@
 > Set sharing to "Anyone with the link can view".
 > Test the link in incognito/private mode before submitting.
 
-**Video Link**: (https://github.com/Abdulraman001/OS-Assignment3-Abdulrahman-Alwabran-/edit/main/ASSIGNMENT_DOCUMENTATION.md)
+**Video Link**: https://drive.google.com/file/d/1DJwpA9Onyeuli9pbqhePjCu8noZVaZYG/view?usp=drivesdk
 
 **Video filename**: `[YourStudentID]_Assignment3_Synchronization.mp4`
 
