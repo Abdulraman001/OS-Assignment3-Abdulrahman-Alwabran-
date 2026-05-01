@@ -37,18 +37,13 @@ class SharedResources {
     public static final ReentrantLock completedProcessLock = new ReentrantLock();
     public static final ReentrantLock waitingTimeLock = new ReentrantLock();
     public static final ReentrantLock logLock = new ReentrantLock();
+    // Binary semaphore for CPU access control
+    public static final Semaphore cpuSemaphore = new Semaphore(1);
     
-    public static int contextSwitchCount = 0;      // Shared counter - NEEDS PROTECTION!
-    public static int completedProcessCount = 0;   // Shared counter - NEEDS PROTECTION!
-    public static long totalWaitingTime = 0;       // Shared accumulator - NEEDS PROTECTION!
-    public static List<String> executionLog = new ArrayList<>();  // Shared list - NEEDS PROTECTION!
-    
-    // TODO #1: Add a ReentrantLock(s) here to protect critical sections
-    // Example: public static final ReentrantLock lock = new ReentrantLock();
-    
-    // TODO #2: Add a Semaphore to limit concurrent process execution
-    // Example: public static final Semaphore cpuSemaphore = new Semaphore(1);
-    
+    public static int contextSwitchCount = 0;
+    public static int completedProcessCount = 0;
+    public static long totalWaitingTime = 0;
+    public static List<String> executionLog = new ArrayList<>();
     // Method to increment context switch counter
     public static void incrementContextSwitch() {
         // TODO: Protect this critical section with a lock
