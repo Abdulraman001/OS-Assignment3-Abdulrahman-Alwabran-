@@ -228,7 +228,10 @@ try {
 ### Test 1: Consistency Check
 **What I tested**: Running program multiple times to verify consistent results
 
-**Testing procedure**: 
+**Testing procedure**:  What I tested: Running the program multiple times to verify consistent results.
+1 Run the simulation multiple times using the same Student ID (Seed).
+2 Monitor the Total Context Switches and Average Waiting Time in each run.
+3 Verify that all values (Burst Times, Process order, and Final Statistics) remain identical across all runs, ensuring the simulation is deterministic and the synchronization is stable.
 ```bash
 # Commands used (run the program at least 5 times)
 ```
@@ -239,40 +242,47 @@ try {
 **Why synchronization is necessary**: 
 (Explain what race conditions COULD occur without synchronization, even if you didn't observe them. Explain which shared resources need protection and why.)
 
-**Conclusion**: 
+**Conclusion**: 1 Initialization: The program uses the Student ID as a seed to generate consistent random processes and adds them to a Ready Queue.
+
+ 2 Scheduling (Round Robin): The CPU executes each process for a specific Time Quantum. If unfinished, the process moves to the back of the queue.
+ 
+ 3. Synchronization:
+    Semaphore: Acts as a gatekeeper to ensure only one process uses the CPU at a time.
+    Fine-grained Locks: Safely update shared counters (waiting time, context switches) without data conflict.
+ 4. Final Output: Once all processes finish, the system displays a Performance Table and synchronization statistics.
 
 ---
 
 ### Test 2: Exception Testing
 **What I tested**: Checking for ConcurrentModificationException
 
-**Testing procedure**: 
+**Testing procedure**:  Multiple threads simultaneously add entries to the ArrayList while the system updates shared counters.
 
-**Results**: 
+**Results**: Zero exceptions. The logs were recorded correctly and the final count was accurate. 
 
-**What this proves**: 
+**What this proves**: The logLock (ReentrantLock) effectively synchronizes the non-thread-safe ArrayList, ensuring data integrity during concurrent access.
 
 ---
 
 ### Test 3: Correctness Verification
-**What I tested**: Verifying correct final values (total burst time, context switches, etc.)
+**What I tested**:  Verifying final statistics (Total Burst Time, Context Switches).
 
-**Expected values**: 
+**Expected values**: Total Burst Time = Sum of all process burst times; Context Switches = Number of execution turns minus one. 
 
-**Actual values**: 
+**Actual values**: Matches exactly with the sum of manual calculations from the console log. 
 
-**Analysis**: 
+**Analysis**:  The statistics are 100% accurate, proving that the Fine-grained locks prevent lost updatnd maintain perfect data integrity.
 
 ---
 
 ### Test 4: Different Scenarios
-**Scenario tested**: [e.g., different time quantum, more processes, etc.]
+**Scenario tested**:  Increasing the Time Quantum (e.g., from 2000ms to 5000ms).
 
-**Purpose**: 
+**Purpose**:  To observe the impact of a larger quantum on Context Switching and Waiting Time.
 
-**Results**: 
+**Results**: Total context switches decreased, while the average waiting time for shorter processes increased.
 
-**What I learned**: 
+**What I learned**: A larger quantum improves efficiency by reducing overhead (fewer switches) but reduces system responsiveness for smaller tasks.
 
 ---
 
@@ -302,7 +312,7 @@ Give TWO examples where synchronization is critical:
 
 ## Part 6: GitHub Repository Information
 
-**Repository URL**: 
+**Repository URL**: https://github.com/Abdulraman001/OS-Assignment3-Abdulrahman-Alwabran-/edit/main/ASSIGNMENT_DOCUMENTATION.md
 
 **Number of commits**: 
 
