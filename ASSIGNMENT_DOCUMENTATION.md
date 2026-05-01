@@ -159,7 +159,7 @@ Lock Design: Fine-Grained
 
 ### Critical Section #1: Counter Variables
 
-**Which variables**: Which variables: contextSwitchCount, completedProcessCount, totalWaitingTime.
+**Which variables**:  contextSwitchCount, completedProcessCount, totalWaitingTime.
 
 **Why they need protection**: To prevent race conditions and ensure data accuracy when multiple threads update them simultaneously.
 
@@ -172,7 +172,6 @@ try {
     contextSwitchLock.unlock();
 }
 
-// Paste your implementation here
 ```
 
 **Justification**: 
@@ -181,15 +180,21 @@ try {
 
 ### Critical Section #2: Execution Log
 
-**What resource**: 
+**What resource**:  executionLog (an ArrayList of Strings).
 
-**Why it needs protection**: 
+**Why it needs protection**:ArrayList is not thread-safe. Concurrent access by multiple threads can cause data corruption or ConcurrentModificationException. 
 
-**Synchronization mechanism used**: 
+**Synchronization mechanism used**:  ReentrantLock (logLock).
 
 **Code snippet**:
-```java
-// Paste your implementation here
+ logLock.lock();
+try {
+    executionLog.add(message);
+} finally {
+    logLock.unlock();
+}
+
+
 ```
 
 **Justification**: 
@@ -198,13 +203,18 @@ try {
 
 ### Critical Section #3: CPU Semaphore
 
-**Purpose of semaphore**: 
+**Purpose of semaphore**:  To ensure Mutual Exclusion by allowing only one process to execute on the CPU at any given time, preventing execution overlap.
 
-**Number of permits and why**: 
+**Number of permits and why**: 1 permit. It acts as a Binary Semaphore (Mutex) to guarantee that the CPU is treated as a non-sharable resource.
 
-**Where implemented**: 
+**Where implemented**: Inside the run() and runToCompletion() methods of the Process class.
 
-**Code snippet**:
+**Code snippet**: SharedResources.cpuSemaphore.acquire();
+try {
+    // Process execution logic
+} finally {
+    SharedResources.cpuSemaphore.release();
+}
 ```java
 // Paste your implementation here
 ```
