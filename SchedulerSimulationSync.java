@@ -8,9 +8,6 @@ import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.locks.ReentrantLock;
 
-
-
-
 // ANSI Color Codes for enhanced terminal output
 class Colors {
     public static final String RESET = "\u001B[0m";
@@ -46,15 +43,24 @@ class SharedResources {
     public static List<String> executionLog = new ArrayList<>();
     // Method to increment context switch counter
     public static void incrementContextSwitch() {
-        // TODO: Protect this critical section with a lock
-        // RACE CONDITION: Multiple threads might read and write simultaneously!
-        contextSwitchCount++;
+        contextSwitchLock.lock();
+        try {
+            contextSwitchCount++;
+        } finally {
+            contextSwitchLock.unlock();
+        }
+    
     }
     
     // Method to increment completed process counter
     public static void incrementCompletedProcess() {
-        // TODO: Protect this critical section with a lock
-        completedProcessCount++;
+         completedProcessLock.lock();
+        try {
+            completedProcessCount++;
+        } finally {
+            completedProcessLock.unlock();
+        }
+    
     }
     
     // Method to add waiting time
