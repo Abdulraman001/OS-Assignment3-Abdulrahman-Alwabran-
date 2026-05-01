@@ -100,9 +100,9 @@ Document your development process with **minimum 3 entries** showing progression
 
 ### Question 1: Race Conditions
 **Q**: Identify and explain TWO race conditions in the original code. For each:
-- What shared resource is affected?
-- Why is concurrent access a problem?
-- What incorrect behavior could occur?
+- What shared resource is affected?  ( contextSwitchCount )
+- Why is concurrent access a problem? ( Because its giving me incorrect data )
+- What incorrect behavior could occur? ( it is possible to enter different data into the contextSwitchCount)
 
 **Your Answer**:
 
@@ -114,6 +114,7 @@ Document your development process with **minimum 3 entries** showing progression
 **Q**: Explain the difference between ReentrantLock and Semaphore. Where did you use each in your code and why?
 
 **Your Answer**:
+(The main difference between a lock and a semaphore is that a lock allows only one thread to access a resource at a time, while a semaphore allows multiple threads to access a resource based on a specific limit. Locks are used for exclusive access, whereas semaphores are used to manage shared resources .)
 
 [Your answer here - explain your implementation choices]
 
@@ -123,6 +124,15 @@ Document your development process with **minimum 3 entries** showing progression
 **Q**: What is deadlock? Explain TWO prevention techniques and what you did to prevent deadlocks in your code.
 
 **Your Answer**:
+
+(Deadlock is a situation where two or more processes are waiting for each other indefinitely, causing the system to stop progressing.
+
+Two prevention techniques:
+
+Resource ordering: Resources are requested in a fixed order.
+Avoid hold and wait: A process must request all needed resources at once.
+
+In my code, deadlocks were prevented by using resource ordering and ensuring threads released resources properly after use.)
 
 [Your answer here - reference try-finally blocks, lock ordering, etc.]
 
@@ -137,7 +147,11 @@ Document your development process with **minimum 3 entries** showing progression
 
 **Your Answer**:
 
-[Your answer here - explain coarse-grained vs fine-grained locking, independence of counters, concurrency implications. Show understanding of when to use each approach. 5-8 sentences expected.]
+Lock Design: Fine-Grained
+ Choice: Separate locks for each counter.
+ Why: Counters are independent; no need to block one to update another.
+ Trade-offs: Better speed/concurrency vs. higher complexity.
+ Best for Concurrency: Fine-grained, because it minimizes lock contention, allowing simultaneous updates.
 
 ---
 
@@ -145,14 +159,19 @@ Document your development process with **minimum 3 entries** showing progression
 
 ### Critical Section #1: Counter Variables
 
-**Which variables**: 
+**Which variables**: Which variables: contextSwitchCount, completedProcessCount, totalWaitingTime.
 
-**Why they need protection**: 
+**Why they need protection**: To prevent race conditions and ensure data accuracy when multiple threads update them simultaneously.
 
-**Synchronization mechanism used**: 
+**Synchronization mechanism used**: Fine-grained ReentrantLock
 
-**Code snippet**:
-```java
+**Code snippet**:contextSwitchLock.lock();
+try {
+    contextSwitchCount++;
+} finally {
+    contextSwitchLock.unlock();
+}
+
 // Paste your implementation here
 ```
 
